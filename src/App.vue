@@ -13,7 +13,13 @@
         </div>
       </form>
       <div class="todo-list">
-        <Todo v-for="t in todos" :key="t.id" :todo="t" />
+        <Todo
+          v-for="t in todos"
+          @toggle="toggleTodo"
+          @remove="removeTodo"
+          :key="t.id"
+          :todo="t"
+        />
       </div>
     </div>
   </div>
@@ -32,6 +38,23 @@ export default {
       todo.id = Date.now();
       this.todos.push(todo);
       this.todo = { checked: false };
+    },
+
+    toggleTodo(todo) {
+      let index = this.todos.findIndex(item => item.id === todo.id);
+      if (index > -1) {
+        let checked = !this.todos[index].checked;
+        //this.todos[index].checked = checked;
+        this.$set(this.todos, index, { ...this.todos[index], checked });
+      }
+    },
+
+    removeTodo(todo) {
+      const index = this.todos.findIndex(item => item.id == todo.id);
+      if (index > -1) {
+        //this.todos.splice(index, 1);
+        this.$delete(this.todos, index);
+      }
     }
   }
 };
