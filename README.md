@@ -1,4 +1,4 @@
-# todo_list_vuejs
+# Todo List VueJS
 
 Task list in VueJS.
 
